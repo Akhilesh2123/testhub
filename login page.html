@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Bug Reporting Buddy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auth.css">
+</head>
+<body>
+<div class="layout">
+  <aside class="panel" aria-hidden="true">
+    <div class="brand"><span class="brand-mark"></span> Bug Reporting Buddy</div>
+    <div>
+      <h2>Report bugs. Squash them faster.</h2>
+      <p>Your reports, screenshots and open issues are right where you left them.</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="card">
+      <div class="brand mobile-brand"><span class="brand-mark"></span> Bug Reporting Buddy</div>
+
+      <h1>Sign in to Bug Reporting Buddy</h1>
+      <p class="sub">New here? <a href="signup.html">Create an account</a></p>
+
+      <div class="alert" id="form-alert" role="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" autocomplete="email" inputmode="email" placeholder="you@example.com" aria-describedby="email-error">
+          <p class="error" id="email-error"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="control has-toggle">
+            <input type="password" id="password" autocomplete="current-password" placeholder="Enter your password" aria-describedby="password-error">
+            <button type="button" class="toggle" data-target="password" aria-controls="password" aria-pressed="false">Show</button>
+          </div>
+          <p class="error" id="password-error"></p>
+        </div>
+
+        <div class="row">
+          <label class="check"><input type="checkbox" id="remember"> Keep me signed in</label>
+          <a href="forgot.html">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submit">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="label">Sign in</span>
+        </button>
+      </form>
+
+      <div class="divider">or</div>
+
+      <button type="button" class="btn btn-outline" id="google">
+        <span class="spinner" aria-hidden="true"></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.2c0-.8-.1-1.5-.2-2.2H12v4.3h5.9a5 5 0 0 1-2.2 3.3v2.7h3.5c2.1-1.9 3.3-4.7 3.3-8.1z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.7l-3.5-2.7c-1 .7-2.2 1-3.7 1-2.8 0-5.2-1.9-6-4.5H2.4v2.8A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M6 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.4a11 11 0 0 0 0 9.8L6 14.1z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3 .6 4.2 1.6l3.1-3.1A11 11 0 0 0 2.4 7.1L6 9.9c.8-2.6 3.2-4.5 6-4.5z"/></svg>
+        <span class="label">Continue with Google</span>
+      </button>
+    </div>
+  </main>
+</div>
+
+<script src="auth.js"></script>
+<script>
+(function () {
+  const A = window.Auth;
+  const email = A.$('email');
+  const password = A.$('password');
+  const submit = A.$('submit');
+
+  const checkEmail = () => A.checkEmail(email);
+  const checkPassword = () => A.checkPassword(password);
+  A.live(email, checkEmail);
+  A.live(password, checkPassword);
+
+  A.$('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    A.hideAlert();
+
+    const okEmail = checkEmail();
+    const okPass = checkPassword();
+    if (!okEmail) return email.focus();
+    if (!okPass) return password.focus();
+
+    A.setLoading(submit, true, 'Signing in…');
+    try {
+      /* ---- Replace with your real API call ----
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value.trim(), password: password.value, remember: A.$('remember').checked })
+      });
+      if (!res.ok) throw new Error('Invalid credentials');
+      ------------------------------------------ */
+      await new Promise((r) => setTimeout(r, 900)); // demo delay
+      A.signIn(email.value.trim());
+    } catch (err) {
+      A.setLoading(submit, false);
+      A.showAlert('That email and password don’t match. Check them and try again.');
+      password.select();
+    }
+  });
+})();
+</script>
+</body>
+</html>

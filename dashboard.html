@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tools.css">
 <style>
   :root {
     --ink: #111111;
@@ -243,6 +244,7 @@
 </dialog>
 
 <script>
+
 (function () {
   /* Send people back to the login page if they haven't signed in */
   let user = null;
@@ -409,9 +411,19 @@
     dlg.close();
     render();
   });
+  window.BBuddy = {
+    getReports: () => reports,
+    addReport: (r) => { reports.push(r); save(); render(); }
+  };
 
   render();
 })();
 </script>
+<script src="tools.js"></script>
+<script src="tools2.js"></script>
+<script src="tools3.js"></script>
+<script src="tools4.js"></script>
+<script src="testing.js"></script>
+<script src="automation.js"></script>
 </body>
 </html>

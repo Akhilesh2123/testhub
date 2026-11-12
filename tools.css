@@ -104,4 +104,19 @@ mark { background: var(--ink); color: var(--paper); border-radius: 3px; padding:
 .stage input { width: 18px; height: 18px; accent-color: var(--accent); margin-top: 3px; flex: none; }
 .stage strong { display: block; }
 .stage span { color: var(--muted); font-size: .92rem; }
+#hist-view [hidden] { display: none !important; }
+.trend { display: flex; flex-direction: column; gap: 8px; }
+.trow { display: grid; grid-template-columns: minmax(80px, 170px) 1fr 52px; gap: 10px; align-items: center; font-size: .9rem; }
+.trow .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trow b { text-align: right; }
+.track { height: 12px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.track i { display: block; height: 100%; background: var(--ink); }
+.cmp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 4px; }
+.cmp h3 { margin: 0 0 6px; font-size: 1rem; }
+.cmp ul { margin: 0; padding-left: 20px; font-size: .92rem; }
+.strip { display: flex; gap: 3px; flex-wrap: wrap; }
+.strip span { width: 22px; height: 22px; display: grid; place-items: center; font-size: .72rem; font-weight: 700; border-radius: 5px; border: 1.5px solid var(--ink); }
+.strip .p { color: var(--ink); }
+.strip .f { background: var(--error); border-color: var(--error); color: #fff; }
+@media (max-width: 900px) { .cmp { grid-template-columns: 1fr; } }
 }
